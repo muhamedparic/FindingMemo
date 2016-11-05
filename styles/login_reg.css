@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Oleo+Script');
+
+* {
+  border-sizing: border-box;
+}
+
+body {
+  background-color: #9dc0f9;
+}
+
+#input-form {
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#title {
+  text-align: left;
+  padding-left: 10px;
+  font-family: 'Oleo Script';
+  font-size: 50px;
+  color: #605637;
+  margin-bottom: 0%;
+}
+
+.row {
+  float: left;
+  padding: 5px;
+  width: 400px;
+}
+
+.col {
+  display: inline-block;
+  float: left;
+  min-height: 20px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.col.wide {
+  width: 60%;
+}
+
+.col.narrow {
+  width: 22%;
+}
+
+.col.full {
+  width: 100%;
+}
+
+.col::first-child {
+  margin-left: 0px;
+}
+
+.col::last-child {
+  margin-right: 0px;
+}
+
+#forgot-password-link {
+  font-size: 10px;
+  margin: auto;
+}
+
+input {
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  border-radius: 6px;
+  border: none;
+}
+
+button:hover {
+  background-color: #bbb;
+}
+
+#register-link {
+  font-size: 13px;
+}
