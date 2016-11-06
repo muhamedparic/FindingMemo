@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+}
+
+#nav-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #9dc0f9;
+}
+
+#nav-bar li {
+  float: left;
+  width: 25%;
+}
+
+#nav-bar a {
+  display: block;
+  color: #fff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition-duration: .5s;
+  font-size: 1.5em;
+  padding: 2%;
+}
+
+#nav-bar a:hover {
+  background-color: #5983c6;
+}
+
+#memo-list {
+  width: 25%;
+  height: 100%;
+  margin: 0;
+}
+
+#new-memo-btn {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 0;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+  height: 1.7em;
+  background-color: #9dc0f9;
+  color: #fff;
+  transition-duration: .5s;
+  font-size: 16px;
+}
+
+#new-memo-btn:hover {
+  background-color: #5983c6;
+}
