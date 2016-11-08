@@ -6,6 +6,10 @@ html, body {
 	height: 95%;
 }
 
+*:focus {
+	outline: 0;
+}
+
 #nav-bar ul {
   list-style-type: none;
   margin: 0;
@@ -71,6 +75,7 @@ a.current {
 	margin: auto;
 	margin-top: 2em;
 	width: 90%;
+	position: relative;
 }
 
 .memo-card.active {
@@ -136,4 +141,10 @@ a.current {
 
 #submit:hover {
 	background-color: #5983c6;
+}
+
+.archive-icon {
+	position: absolute;
+	top: 0px;
+	right: 0px;
 }
