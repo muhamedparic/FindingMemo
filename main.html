@@ -7,7 +7,7 @@
     <div id='nav-bar'>
       <ul>
         <li>
-          <a href='http://c2.etf.unsa.ba'>My memos</a>
+          <a class='current' href='http://c2.etf.unsa.ba'>My memos</a>
         </li>
         <li>
           <a href='http://c2.etf.unsa.ba'>Archive</a>
@@ -23,8 +23,19 @@
     <div id='memo-list'>
       <button id='new-memo-btn'>New memo</button>
       <div class='memo-card'>
-        <p class='memo-card-title'>
-      </div>
+        <p class='memo-card-title'>Memo title</p>
+        <p class='memo-card-text'>Memo text</p>
+	  </div>
+	  <div class='memo-card'>
+        <p class='memo-card-title'>Memo title</p>
+        <p class='memo-card-text'>Memo text</p>
+	    <p class='memo-card-reminder'>Remind me at 14:00 on 2016-12-10</p>
+	  </div>
     </div>
+		<div id='edit-area'>
+	  	<input type='text' id='new-memo-title' placeholder='Memo title'>
+			<input type='text' id='new-memo-text' placeholder='Memo text'>
+		</div>
   </body>
 </html>
+

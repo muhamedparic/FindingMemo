@@ -15,13 +15,17 @@ body {
   width: 25%;
 }
 
+a.current {
+	background-color: #5983c6;
+}
+
 #nav-bar a {
   display: block;
   color: #fff;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  transition-duration: .5s;
+  transition: background-color .5s;
   font-size: 1.5em;
   padding: 2%;
 }
@@ -33,7 +37,8 @@ body {
 #memo-list {
   width: 25%;
   height: 100%;
-  margin: 0;
+  margin-right: 0;
+	float: left;
 }
 
 #new-memo-btn {
@@ -41,16 +46,52 @@ body {
   margin-left: 5%;
   margin-right: 5%;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 0.5em;
   border-radius: 6px;
   border: none;
   height: 1.7em;
   background-color: #9dc0f9;
   color: #fff;
-  transition-duration: .5s;
+  transition: background-color .5s;
   font-size: 16px;
 }
 
 #new-memo-btn:hover {
   background-color: #5983c6;
+	cursor: pointer;
+}
+
+.memo-card {
+	border: 2px solid;
+	border-radius: 6px;
+	margin: auto;
+	margin-top: 2em;
+	width: 90%;
+}
+
+.memo-card-title {
+	font-weight: bold;
+}
+
+.memo-card-title, .memo-card-text, .memo-card-reminder {
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+}
+
+#edit-area {
+	width: 75%;
+	height: 100%;
+	float: right;
+	margin-top: 0.5em;
+}
+
+#new-memo-title {
+	width: 90%;
+	margin: auto;
+	margin-bottom: 2em;
+}
+
+#new-memo-text {
+	width: 90%;
+	height: 100%;
 }
