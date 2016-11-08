@@ -13,6 +13,7 @@
 
 ## Bugovi
 - Horizontalni scrollbar na glavnoj stranici, overflow-x: hidden sakrije donji dio stranice (bezuspjesno sam pokusavao popraviti)
+- Neki screenshoti mockupa su zuti, ne znam zasto, vjerovatno je kriv Linux-ov screenshot alat
 
 ## Opisi fajlova
 - account.html - html kod za mijenjanje emaila i passworda
