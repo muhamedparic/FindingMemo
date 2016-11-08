@@ -56,3 +56,9 @@ input[type=submit]:hover {
 input[type=email], input[type=password] {
 	border: 1px solid;
 }
+
+@media screen and (orientation:portrait) {
+	#container {
+		margin-top: 60px;	
+	}
+}
