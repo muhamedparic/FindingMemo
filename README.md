@@ -1,15 +1,19 @@
 # FindingMemo
 # Muhamed Paric - 16940
+
 ## Sta je uradjeno
 - Login stranica
 - Registracijska stranica
 - Vecina glavne stranice
 - Account stranica
+
 ## Sta nije uradjeno
 - Stranica za arhivu
 - Uljepsati account stranicu tako da izgleda slicno login i register stranicama
+
 ## Bugovi
 - Horizontalni scrollbar na glavnoj stranici, overflow-x: hidden sakrije donji dio stranice (bezuspjesno sam pokusavao popraviti)
+
 ## Opisi fajlova
 - account.html - html kod za mijenjanje emaila i passworda
 - login.html - html kod za loginovanje preko html forme
