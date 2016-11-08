@@ -72,6 +72,12 @@ input {
   border: none;
 }
 
+#password-strength {
+	font-size: 14px;
+	margin: 0;
+	padding-top: 0.2em;
+}
+
 button {
   border-radius: 6px;
   border: none;
