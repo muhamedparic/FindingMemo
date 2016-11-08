@@ -1,6 +1,8 @@
 # FindingMemo
 # Muhamed Paric - 16940
 
+## Stranica za cuvanje zabiljeski sa opcijom za arhiviranje i slanje podsjetnika
+
 ## Sta je uradjeno
 - Login stranica
 - Registracijska stranica
