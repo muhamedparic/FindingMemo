@@ -1,16 +1,19 @@
 <html>
   <head>
     <link rel='stylesheet' type='text/css' href='styles/login_reg.css'/>
+    <script src='scripts/validate.js'></script>
   </head>
   <body>
     <div id='input-form'>
       <h2 id='title'>Finding Memo</h2>
       <div class='row'>
-        <input type='text' placeholder='Email Address' class='col wide'/>
+        <input type='text' placeholder='Email Address' class='col wide' id='email' oninput='check_email_error()' onpaste='check_email_error()'/>
+        <p id='email-error-indicator' class='col narrow'></p>
       </div>
       <div class='row'>
-        <input type='password' placeholder='Password' class='col wide'/>
+        <input type='password' placeholder='Password' class='col wide' id='password' oninput='check_password_error()' onpaste='check_password_error()'/>
         <a href='#' class='col narrow' id='forgot-password-link'>I forgot my password</a>
+        <p id='password-error-indicator' class='col narrow'></p>
       </div>
       <div class='row'>
         <button class='col wide' id='login-btn'>Log in</button>
