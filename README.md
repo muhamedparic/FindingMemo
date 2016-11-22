@@ -8,10 +8,12 @@
 - Registracijska stranica
 - Vecina glavne stranice
 - Account stranica
+- Najosnovnija validacija na login i register stranicama
 
 ## Sta nije uradjeno
 - Stranica za arhivu
 - Uljepsati account stranicu tako da izgleda slicno login i register stranicama
+- Za 2. spiralu nista drugo
 
 ## Bugovi
 - Horizontalni scrollbar na glavnoj stranici, overflow-x: hidden sakrije donji dio stranice (bezuspjesno sam pokusavao popraviti)
