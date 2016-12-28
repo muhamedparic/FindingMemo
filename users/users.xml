@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<users>
+  <user>
+    <email>admin@etf.unsa.ba</email>
+    <password_sha256>713bfda78870bf9d1b261f565286f85e97ee614efe5f0faf7c34e7ca4f65baca</password_sha256>
+    <admin>true</admin>
+  <email>mojaadresa@gmail.com</email><password_sha256>fa3b1d0656a6fc69697402a785e7ec0d5617be240d9ca4397dbadf2e69c646ab</password_sha256><admin/></user>
+<user/></users>
