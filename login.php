@@ -7,7 +7,8 @@
    && $params['password'] === $params['password-confirm'] 
    && strlen($params['password']) >= 8
    && filter_var($params['email'], FILTER_VALIDATE_EMAIL) !== false
-   && $params['type'] === 'REGISTER') {
+   && $params['type'] === 'REGISTER'
+   && !util\user_exists($params['email'])) {
     util\register($params['email'], $params['password']); 
   }
 ?>
