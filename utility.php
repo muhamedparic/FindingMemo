@@ -17,33 +17,39 @@ function parse_parameters($method, $keys) {
 }
 
 function register($email, $password) {
-  if (!file_exists('users')) {
-    mkdir('users');
-    file_put_contents('users/users.xml', "<?xml version=\"1.0\"?>
-    <users>
-  <user>
-    <email>admin@etf.unsa.ba</email>
-    <password_sha256>713bfda78870bf9d1b261f565286f85e97ee614efe5f0faf7c34e7ca4f65baca</password_sha256>
-    <admin>true</admin>
-  </user>
-</users>");
-  }
-  
-  // Funkcija ne radi jos nista
+  $xml_doc = \DOMDocument::load('data/users.xml');
+  $xml_doc->preserveWhitespace = true;
+  $xml_doc->formatOutput = true;
 
+  $users = $xml_doc->getElementsByTagName('users')->item(0);
+  $new_user = new \DOMElement('user');
+  $users->appendChild($new_user);
+  $new_user->appendChild(new \DOMElement('email', $email));
+  $new_user->appendChild(new \DOMElement('password_sha256', hash('sha256', $password)));
+  $new_user->appendChild(new \DOMElement('admin', 'false'));
+  
+  $xml_doc->save('data/users.xml');
 }
 
 function login($email, $password) {
-  $users = \simplexml_load_string(\file_get_contents('users/users.xml'));
-  foreach ($users->children() as $user) {
-    if ($user->email === $email && $user->password_sha256 === hash('sha256', $password)) {
-      $_COOKIE['key'] = 'true';
-      return true;
-    }
-  }
-  return false;
+  
 }
 
 function logout() {
   unset($_COOKIE['key']);
+}
+
+function generate_token() {
+  return hash('sha256', (string)random_int(PHP_INT_MIN, PHP_INT_MAX));
+}
+
+function user_exists($email, $password) {
+  $xml_doc = \DOMDocument::load('data/users.xml');
+  foreach ($xml_doc->getElementsByTagName('user') as $user) {
+    if ($user->getElementsByTagName('email')->item(0)->nodeValue === $email
+     && $user->getElementsByTagname('password_sha256')->item(0)->nodeValue === hash('sha256', $password)) {
+      return true;
+    }
+  }
+  return false;
 }
