@@ -87,3 +87,13 @@ function user_logged_in($email) {
 
   return false;
 }
+
+function save_emails_csv() {
+  $xml_doc = \DOMDocument::load('data/users.xml');
+  $emails = '';
+  foreach ($xml_doc->getElementsByTagName('user') as $user) {
+    $emails .= ($user->getElementsByTagName('email')->item(0)->nodeValue . "\n");
+  }
+
+  \file_put_contents('data/emails.csv', $emails);
+}

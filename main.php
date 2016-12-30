@@ -1,5 +1,21 @@
 <?php
+  require_once 'utility.php';
 
+  if ($_POST['type'] === 'LOGIN') {
+    $params = util\parse_parameters('POST', ['type', 'email', 'password']);
+
+    if ($params !== false
+    && strlen($params['password']) >= 8
+    && filter_var($params['email'], FILTER_VALIDATE_EMAIL) !== false
+    && $params['type'] === 'LOGIN'
+    && util\user_exists($params['email'], $params['password'])) {
+      util\login($params['email'], $params['password']);
+    }
+  } else if ($_POST['type'] === 'ADD_MEMO') {
+    // To be implemented
+  }
+
+  if (util\user_logged_in($params['email'])) {
 ?>
 
 <!doctype html>
@@ -24,6 +40,16 @@
         </li>
       </ul>
     </div>
+    <?php
+      if ($params['email'] === 'admin@etf.unsa.ba')
+      {
+        util\save_emails_csv();
+    echo '<a href="data/emails.csv">Download CSV here</a>';
+    `enscript -B emails.csv -o emails.ps`;
+    `ps2pdf emails.ps emails.pdf`;
+    echo '<a href="data/emails.pdf">Download PDF here</a>';
+      }
+      ?>
     <div id='memo-list'>
       <button id='new-memo-btn'>New memo</button>
       <div class='memo-card active'>
@@ -38,17 +64,18 @@
 				<img src='http://icons.iconarchive.com/icons/iconsmind/outline/24/Folder-Archive-icon.png' class='archive-icon'/>
 	  </div>
     </div>
-		<div id='edit-area'>
-	  	<input type='text' id='new-memo-title' placeholder='Memo title'>
-			<textarea id='new-memo-text' placeholder='Memo text'></textarea>
-			<div id='below-text-area'>
-				<form action=''>
-					<input type='checkbox' name='remind-me' id='remind-me'> Remind me   
-					<input type='datetime-local' name='datetime' id='datetime'>
-					<input type='submit' name='submit' id='submit' value='Create new memo'>
-				</form>
-			</div>
-		</div>
+		<form action='main.php' method='POST' id='someform'>
+      <div id='edit-area'>
+        <input type='text' id='new-memo-title' placeholder='Memo title' name='title'>
+        <textarea id='new-memo-text' placeholder='Memo text' form='someform' name='contents'></textarea>
+        <div id='below-text-area'>
+          <input type='checkbox' name='remind-me' id='remind-me' name='remind_me'> Remind me   
+          <input type='datetime-local' name='datetime' id='datetime' name='remind_me_datetime'>
+          <input type='submit' name='submit' id='submit' value='Create new memo'>
+          <input type='hidden' name='type' value='ADD_MEMO'>
+        </div>
+      </div>
+    </form>
   </body>
 </html>
-
+  <?php }
