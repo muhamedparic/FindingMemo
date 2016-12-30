@@ -3,6 +3,9 @@
 
 ## Stranica za cuvanje zabiljeski sa opcijom za arhiviranje i slanje podsjetnika
 
+Email: admin@etf.unsa.ba
+Password: adminpass
+
 ## Sta je uradjeno
 - Login stranica
 - Registracijska stranica
