@@ -16,84 +16,73 @@ function parse_parameters($method, $keys) {
   return $params;
 }
 
-function register($email, $password) {
-  $xml_doc = \DOMDocument::load('data/users.xml');
-
-  $users = $xml_doc->getElementsByTagName('users')->item(0);
-  $new_user = new \DOMElement('user');
-  $users->appendChild($new_user);
-  $new_user->appendChild(new \DOMElement('email', $email));
-  $new_user->appendChild(new \DOMElement('password_sha256', hash('sha256', $password)));
-  $new_user->appendChild(new \DOMElement('admin', 'false'));
-  
-  $xml_doc->save('data/users.xml');
-}
-
-function login($email, $password) {
-  if (user_logged_in($email)) {
-    logout($email);
-  }
-
-  $xml_doc = \DOMDocument::load('data/tokens.xml');
-  $tokens = $xml_doc->getElementsByTagName('tokens')->item(0);
-  $new_token = new \DOMElement('token');
-  $tokens->appendChild($new_token);
-
-  $new_token->appendChild(new \DOMElement('user_email', $email));
-  $new_token->appendChild(new \DOMElement('data', generate_token()));
-
-  $xml_doc->save('data/tokens.xml');
-}
-
-function logout($email) {
-  $xml_doc = \DOMDocument::load('data/tokens.xml');
-  $tokens = $xml_doc->getElementsByTagName('tokens')->item(0);
-
-  foreach ($tokens->getElementsByTagName('token') as $token) {
-    if ($token->getElementsByTagName('user_email')->item(0)->nodeValue === $email) {
-      $tokens->removeChild($token);
-      break;
-    }
-  }
-
-  $xml_doc->save('data/tokens.xml');
+function new_connection() {
+	return new PDO("mysql:dbname=finding_memo;host=localhost;charset=utf8", "root", "");
 }
 
 function generate_token() {
   return hash('sha256', (string)random_int(PHP_INT_MIN, PHP_INT_MAX));
 }
 
+function register($email, $password) {
+  	$conn = new_connection();
+
+  	$insert = $conn->prepare('INSERT INTO users(email, password_sha256, admin) VALUES(:email, :password, :admin)');
+	$insert->execute([':email' => $email, ':password' => hash('sha256', $password), ':admin' => 'false']);
+}
+
+function login($email, $password) {
+	if (user_logged_in($email)) {
+    	logout($email);
+  	}
+
+	$conn = new_connection();
+
+	$insert = $conn->prepare('INSERT INTO tokens(string, user_id, created_on) VALUES(:token, (SELECT id FROM users WHERE email = :email), CURRENT_DATE())');
+	$insert->execute([':email' => $email, ':token' => generate_token()]);
+}
+
+function logout($email) {
+	$conn = new_connection();
+
+	$delete = $conn->prepare('DELETE FROM tokens WHERE user_id = (SELECT id FROM users WHERE email = :email');
+	$delete->execute([':email' => $email]);
+}
+
 function user_exists($email, $password = null) {
-  $xml_doc = \DOMDocument::load('data/users.xml');
-  foreach ($xml_doc->getElementsByTagName('user') as $user) {
-    if ($user->getElementsByTagName('email')->item(0)->nodeValue === $email) {
-      if ($password === null || $user->getElementsByTagName('password_sha256')->item(0)->nodeValue === hash('sha256', $password)) {
-        return true;
-      }
-    }
-  }
-  return false;
+	$conn = new_connection();
+
+	$select = null;
+
+	if ($password) {
+		$select = $conn->prepare('SELECT COUNT(*) FROM users WHERE email = :email AND password_sha256 = :password');
+		$select->execute([':email' => $email, ':password' => $password]);
+	} else {
+		$select = $conn->prepare('SELECT COUNT(*) FROM user WHERE email = :email');
+		$select->execute([':email' => $email]);
+	}
+
+	return $select->fetchColumn() === 1;
 }
 
 function user_logged_in($email) {
-  $xml_doc = \DOMDocument::load('data/tokens.xml');
-  $tokens = $xml_doc->getElementsByTagName('tokens')->item(0);
+	$conn = new_connection();
 
-  foreach ($tokens->getElementsByTagName('token') as $token) {
-    if ($token->getElementsByTagName('user_email')->item(0)->nodeValue === $email) {
-      return true;
-    }
-  }
+	$select = $conn->prepare('SELECT COUNT(*) FROM tokens WHERE user_id = (SELECT id FROM users WHERE email = :email)');
+	$select->execute([':email' => $email]);
 
-  return false;
+	return $select->fetchColumn() === 1;
 }
 
 function save_emails_csv() {
-  $xml_doc = \DOMDocument::load('data/users.xml');
-  $emails = '';
-  foreach ($xml_doc->getElementsByTagName('user') as $user) {
-    $emails .= ($user->getElementsByTagName('email')->item(0)->nodeValue . "\n");
-  }
+	$conn = new_connection();
 
-  \file_put_contents('data/emails.csv', $emails);
+	$emails = '';
+	$select = $conn->prepare('SELECT email FROM users');
+
+	for ($select->fetchAll() as $email) {
+		$emails .= ($email . "\n");
+	}
+
+	\file_put_contents('data/emails.csv', $emails);
 }
